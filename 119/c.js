@@ -1,38 +1,37 @@
 // const fs = require('fs')
 // const stdin = fs.readFileSync('/dev/stdin', 'utf8')
 
-const stdin = '5 100 90 80\n98\n40\n30\n21\n80\n'
+const stdin = `8 1000 800 100
+300
+333
+400
+444
+500
+555
+600
+666`
 
-const input = stdin.split('\n')
+const [n, A, B, C] = stdin
+  .split('\n')[0]
+  .split(' ')
+  .map(Number)
 
-const [N, A, B, C] = input[0].split(' ')
+const [, ...rest] = stdin.split('\n')
 
-const [, ...rest] = input
+const ls = rest.filter(e => e).map(Number)
 
-const l = rest.filter(e => e).map(Number)
-const ABC = [A, B, C]
-
-
-const dfs = []
-
-for(let i = 0; i < N; i++){
-
-  const level = []
-
-  for(let j = 0; j < 4; j++){
-
-    const node = j
-
-    level.push([0, 1, 2, 3])
+function dfs(current, a, b, c) {
+  if (current === n) {
+    if (a === 0 || b === 0 || c === 0) return Infinity
+    return Math.abs(a - A) + Math.abs(b - B) + Math.abs(c - C)
   }
 
-  
-  
+  const r0 = dfs(current + 1, a, b, c)
+  const r1 = dfs(current + 1, a + ls[current], b, c) + 10
+  const r2 = dfs(current + 1, a, b + ls[current], c) + 10
+  const r3 = dfs(current + 1, a, b, c + ls[current]) + 10
+
+  return Math.min(r0, r1, r2, r3)
 }
 
-function getNodes(){
-  return [0, 1, 2, 3]
-}
-
-console.log(dfs)
-
+console.log(dfs(0, 0, 0, 0) - 3 * 10)
