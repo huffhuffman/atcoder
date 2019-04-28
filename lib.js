@@ -1,3 +1,23 @@
+// gcd: 最大公約数
+function gcd(a, b) {
+  if (b === 0) {
+    return a;
+  }
+  return gcd(b, a % b);
+}
+//またはこっち
+function gcd(a, b) {
+  let R
+  while (a % b > 0) {
+    R = a % b
+    a = b
+    b = R
+  }
+  return b
+}
+
+
+
 // 配列から空文字の要素を取り除く
 // arr.filter(el=>el)
 // [ 'aiu', '', '', '', '', 'kakikuk', '', '', '', '', 'sasisu' ]
