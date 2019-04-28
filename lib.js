@@ -1,22 +1,29 @@
 // gcd: 最大公約数
-function gcd(a, b) {
-  if (b === 0) {
-    return a;
+{
+  function gcd(a, b) {
+    if (b === 0) {
+      return a
+    }
+    return gcd(b, a % b)
   }
-  return gcd(b, a % b);
-}
-//またはこっち
-function gcd(a, b) {
-  let R
-  while (a % b > 0) {
-    R = a % b
-    a = b
-    b = R
+  //またはこっち
+  function gcd(a, b) {
+    let R
+    while (a % b > 0) {
+      R = a % b
+      a = b
+      b = R
+    }
+    return b
   }
-  return b
 }
 
-
+// jsには+0と-0がある
+// -1 * 0は -0になる
+// 出力が+0か-0という値になりえるときは0になおす
+{
+  if (res === 0) res = 0
+}
 
 // 配列から空文字の要素を取り除く
 // arr.filter(el=>el)
@@ -29,13 +36,13 @@ const arr = [1, 2, 3, 4, 5] // === 15
 const res = arr.reduce((pv, cv) => pv + cv)
 console.log(res)
 
-
 /*
 配列に特定の要素があるかどうか
 indexOfはなかったときは「-1」なので注意！（-1はfalsyではない）
-*/ 
+*/
+
 {
-  const arr = [2,4,1]
+  const arr = [2, 4, 1]
   const includes4 = arr.indexOf(4) > -1
   console.log(includes4)
 }

@@ -1,11 +1,11 @@
 // const stdin = require('fs').readFileSync('/dev/stdin', 'utf8')
 
-const stdin = `-100 0`
+const stdin = `1 3`
 
 const [a, b] = stdin.split('\n')[0].split(' ').map(Number)
 
-let res = Math.max(a-b, a*b, a+b)
+const res = _ => {
+  return Math.ceil((a+b)/2)
+}
 
-if(res === 0)res = 0
-
-console.log(res)
+console.log(res())

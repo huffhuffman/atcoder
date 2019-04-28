@@ -53,7 +53,6 @@ a.forEach((e, i) => {
 
 console.log(max)
 
-
 function gcd(a, b) {
   if (b === 0) {
     return a;
