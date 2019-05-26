@@ -1,10 +1,10 @@
 // const stdin = require('fs').readFileSync('/dev/stdin', 'utf8')
 
-const stdin = `10 3
-1 8 5 7 100 4 52 33 13 5
-3 10
-4 30
-1 4`
+const stdin = `11 3
+1 1 1 1 1 1 1 1 1 1 1
+3 1000000000
+4 1000000000
+3 1000000000`
 
 const [n, m] = stdin
   .split('\n')[0]
@@ -19,22 +19,32 @@ const [, , ..._bc] = stdin.trim().split('\n')
 const bc = _bc.map(e => e.split(' ').map(Number))
 
 const ans = _ => {
-  for (let i = 0; i < bc.length; i++) {
-    let [b, c] = bc[i]
+  let pool = a.map(e => [e, 1])
 
-    a.sort((a, b) => a - b)
-    console.log(a)
-    if (a[0] < c) {
-      for (let j = 0; j < a.length; j++) {
-        if (a[j] < c && b > 0) {
-          a[j] = c
-          b--
-        }
-      }
+  for (let i = 0; i < m; i++) {
+    const [b, c] = bc[i]
+
+    pool.push([c, b])
+  }
+
+  pool.sort((a, b) => {
+    return b[0] - a[0]
+  })
+
+  let i = 0
+  let sum = 0
+  let count = 0
+  while (count < n) {
+    const card = pool[i][0]
+    sum += card
+    count++
+    pool[i][1]--
+    if (pool[i][1] <= 0) {
+      i++
     }
   }
 
-  return a.reduce((p, c) => p + c)
+  return sum
 }
 
 console.log(ans())
