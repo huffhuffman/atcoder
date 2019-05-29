@@ -27,6 +27,9 @@ void print(int id) {
   cout << "[";
 
   int c = Tree[id].left;
+  // 最初に左下の子を表示、
+  // 次にその子の右隣りの兄弟を表示、
+  // 最後に右隣の兄弟がいなくなったら終わり
   for (int i = 0; c != NIL; i++, c = Tree[c].right) {
     if (i) {
       cout << ", ";
