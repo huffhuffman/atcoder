@@ -1,10 +1,9 @@
 // const stdin = require('fs').readFileSync('/dev/stdin', 'utf8').trim()
 
-const stdin = `10 2
-4
-5`
+const stdin = `6 1
+3`
 
-const mod = 1000000007
+const MOD = 1000000007
 
 const [n, m] = stdin
   .split('\n')[0]
@@ -18,8 +17,22 @@ const a = stdin
 
 const A = new Set(a)
 
-
 const ans = () => {
+  const steps = A.has(1) ? [1, 0] : [1, 1]
+
+  for (let i = 2; i <= n; i++) {
+    if (A.has(i)) {
+      steps[i] = 0
+    } else if (steps[i - 1] === 0 && steps[i - 2] === 0) {
+      return 0
+    } else {
+      steps[i] = (steps[i - 1] + steps[i - 2]) % MOD
+    }
+  }
+
+  const last = steps[n]
+
+  return last
 }
 
-ans()
+console.log(ans())
