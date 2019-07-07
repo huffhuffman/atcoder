@@ -1,44 +1,39 @@
 // const stdin = require('fs').readFileSync('/dev/stdin', 'utf8').trim()
 
-const stdin = `10 40 6 8`
+const stdin = `314159265358979323 846264338327950288 419716939 937510582`
 
 const [a, b, c, d] = stdin
   .split('\n')[0]
   .split(' ')
   .map(Number)
 
-const s = new Set()
-
 const ans = () => {
-  if (c === 1 || d === 1) {
-    return 0
-  }
+  const aCount = getCount(a - 1)
+  const bCount = getCount(b)
 
-  const cs = getCount(c)
-  const ds = getCount(d)
-  const cds = getCount(c * d)
-
-  const divs = cs + ds - cds
-
-  return b - a + 1 - divs
+  return bCount - aCount
 }
 
-const getCount = n => {
-  let i = 1
+const getCount = num => {
+  const cmul = Math.floor(num / c)
+  const dmul = Math.floor(num / d)
 
-  let count = 0
-  while (1) {
-    const num = i * n
+  const l = lcm(c, d)
+  const dups = Math.floor(num / l)
 
-    if (a <= num && num <= b && !s.has(num)) {
-      s.add(num)
-      count++
-    } else if (b < num) {
-      return count
-    }
+  return num - cmul - dmul + dups
+}
 
-    i++
+const lcm = (a,b) => {
+  const g = (n, m) => m ? g(m, n % m) : n
+  return a * b / g(a, b)
+}
+
+const gcd = (a, b) => {
+  if (b === 0){
+      return a
   }
+  return gcd(b, a % b)
 }
 
 console.log(ans())
