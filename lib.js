@@ -18,6 +18,23 @@
   }
 }
 
+// gcd to lcm
+{
+  const gcd = (a, b) => {
+    let R
+    while (a % b > 0) {
+      R = a % b
+      a = b
+      b = R
+    }
+    return b
+  }
+
+  const lcm = (a, b) => {
+    return (a * b) / gcd(a, b)
+  }
+}
+
 // jsには+0と-0がある
 // -1 * 0は -0になる
 // 出力が+0か-0という値になりえるときは0になおす
