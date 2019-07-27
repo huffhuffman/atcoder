@@ -18,7 +18,7 @@
   }
 }
 
-// gcd to lcm
+// gcd と lcm
 {
   const gcd = (a, b) => {
     let R
