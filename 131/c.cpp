@@ -1,34 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
-long long getCount(long long n, long long a, long long b) {
-  long long i = 1;
+ll lcm(ll c, ll d) { return c / __gcd(c, d) * d; }
 
-  long long count = 0;
-  while (1) {
-    long long num = i * n;
+ll f(ll x, int c, int d) {
+  ll res = x;
+  res -= x / c;  // 全体からcで割り切れる数をひく = cで割り切れない数
+  res -= x / d;  // 全体からdで割り切れる数をひく = dで割り切れない数
 
-    if (a <= num && num <= b) {
-      count++;
-    } else if (b < num) {
-      return count;
-    }
+  // 全体から重複して引いた数を足し戻す（cとdの最小公倍数の倍数の数）
+  res += x / lcm(c, d);
 
-    i++;
-  }
+  return res;
 }
 
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
-  long long a, b, c, d;
-
+  ll a, b;
+  int c, d;
   cin >> a >> b >> c >> d;
 
-  long long total = b - a + 1;
+  ll ans = f(b, c, d) - f(a - 1, c, d);
 
-  long long cs = getCount(c, a, b);
-  long long ds = getCount(d, a, b);
+  cout << ans << endl;
+
   return 0;
 }

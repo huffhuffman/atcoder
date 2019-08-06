@@ -18,6 +18,7 @@
   }
 }
 
+// aでもbでも割り切れる数 => aとbの最小公倍数（lcm）
 // gcd と lcm
 {
   const gcd = (a, b) => {
