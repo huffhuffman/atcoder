@@ -1,30 +1,30 @@
 // const stdin = require('fs').readFileSync('/dev/stdin', 'utf8').trim()
 
-const stdin = `575`
-const n = stdin.split('\n')[0]
+const stdin = `999999999`
+const n = Number(stdin.split('\n')[0])
 
-const sft = [7, 5, 3]
-let done = []
+let count = 0
 
 const ans = () => {
-  const len = n.length
+  dfs(0)
 
-  const list = []
-
-  const sftNumArr = looper(list, 3, [])
-
-  console.log(sftNumArr)
+  console.log(count)
 }
 
-const dfs = (graph, v) => {
-  done[v] = true
+const dfs = val => {
+  const strVal = String(val)
 
-  for (let i = 0; i < graph.length; i++) {
-    const nextV = graph[i]
-
-    if (done[nextV]) continue
-    dfs(graph, nextV)
+  if (val > n) {
+    return
   }
+
+  if (strVal.indexOf('3') >= 0 && strVal.indexOf('5') >= 0 && strVal.indexOf('7') >= 0) {
+    count++
+  }
+
+  dfs(10 * val + 3)
+  dfs(10 * val + 5)
+  dfs(10 * val + 7)
 }
 
 ans()
