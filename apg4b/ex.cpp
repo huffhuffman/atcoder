@@ -8,22 +8,24 @@ int main() {
   int n;
   cin >> n;
 
-  int sum = 0;
-
   vector<int> a(n);
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-
-    sum += x;
-    a.at(i) = x;
+    cin >> a.at(i);
   }
 
-  int avg = sum / n;
+  sort(a.begin(), a.end(), greater<int>());
 
+  int alice = 0;
+  int bob = 0;
   for (int i = 0; i < n; i++) {
-    cout << abs(avg - a.at(i)) << endl;
+    if (i % 2 == 0) {
+      alice += a.at(i);
+    } else {
+      bob += a.at(i);
+    }
   }
+
+  cout << alice - bob << endl;
 
   return 0;
 }
