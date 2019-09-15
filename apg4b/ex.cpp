@@ -1,31 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  int h, w;
+  cin >> h >> w;
 
-  vector<int> a(n);
-  for (int i = 0; i < n; i++) {
-    cin >> a.at(i);
-  }
+  vector<bool> rows(h, false), cols(w, false);
 
-  sort(a.begin(), a.end(), greater<int>());
+  vector<vector<char>> a(h, vector<char>(w));
+  for (int i = 0; i < h; i++) {
+    for (int j = 0; j < w; j++) {
+      char s;
+      cin >> s;
 
-  int alice = 0;
-  int bob = 0;
-  for (int i = 0; i < n; i++) {
-    if (i % 2 == 0) {
-      alice += a.at(i);
-    } else {
-      bob += a.at(i);
+      if (s == '#') {
+        rows.at(i) = true;
+        cols.at(j) = true;
+      }
+
+      a.at(i).at(j) = s;
     }
   }
 
-  cout << alice - bob << endl;
+  for (int i = 0; i < h; i++) {
+    if (!rows.at(i)) continue;
+
+    for (int j = 0; j < w; j++) {
+      if (!cols.at(j)) continue;
+
+      cout << a.at(i).at(j);
+    }
+
+    cout << endl;
+  }
 
   return 0;
 }
