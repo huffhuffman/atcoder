@@ -2,41 +2,36 @@
 using namespace std;
 typedef long long ll;
 
+int n, k;
+vector<int> a;
+
+bool dfs(int idx, int sum) {
+  if (idx == n) return sum == k;
+
+  int num = a.at(idx);
+
+  if (dfs(idx + 1, sum)) return true;
+
+  if (dfs(idx + 1, sum + num)) return true;
+
+  return false;
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
-  int h, w;
-  cin >> h >> w;
+  cin >> n >> k;
 
-  vector<bool> rows(h, false), cols(w, false);
-
-  vector<vector<char>> a(h, vector<char>(w));
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < w; j++) {
-      char s;
-      cin >> s;
-
-      if (s == '#') {
-        rows.at(i) = true;
-        cols.at(j) = true;
-      }
-
-      a.at(i).at(j) = s;
-    }
+  for (int i = 0; i < n; i++) {
+    int ai;
+    cin >> ai;
+    a.push_back(ai);
   }
 
-  for (int i = 0; i < h; i++) {
-    if (!rows.at(i)) continue;
+  bool ans = dfs(0, 0);
 
-    for (int j = 0; j < w; j++) {
-      if (!cols.at(j)) continue;
-
-      cout << a.at(i).at(j);
-    }
-
-    cout << endl;
-  }
+  cout << (ans ? "Yes" : "No") << endl;
 
   return 0;
 }

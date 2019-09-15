@@ -2,55 +2,59 @@
 using namespace std;
 typedef long long ll;
 
+bool isT(string &sd, string &t, int idx) {
+  if (idx + t.size() - 1 >= sd.size()) return false;
+
+  for (int i = 0; i < t.size(); i++) {
+    if (sd.at(i + idx) != t.at(i) && sd.at(i + idx) != '?') {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
-  string no = "UNRESTORABLE";
-
   string sd, t;
   cin >> sd >> t;
 
-  int ti = -1;
-  int tRevi = 0;
+  string ans = "";
+
+  vector<int> tis;
 
   for (int i = 0; i < sd.size(); i++) {
-    char cs = sd.at(sd.size() - 1 - i);  // sdを後ろから
+    if (isT(sd, t, i)) {
+      tis.push_back(i);
+    }
+  }
 
-    char ct = t.at(t.size() - 1 - tRevi);  // tを後ろから
+  if (tis.empty()) {
+    ans = "UNRESTORABLE";
+  } else {
+    for (int i = 0; i < tis.size(); i++) {
+      string cp = sd;
+      int ti = tis.at(i);
 
-    if (cs == ct || cs == '?') {  // 一致、または?なら次のt
-      if (tRevi == t.size() - 1) {
-        ti = sd.size() - 1 - i;
-        break;
+      for (int j = 0; j < t.size(); j++) {
+        cp.at(ti + j) = t.at(j);
       }
 
-      tRevi++;
-    } else {
-      tRevi = 0;
+      for (int j = 0; j < cp.size(); j++) {
+        if (cp.at(j) == '?') cp.at(j) = 'a';
+      }
+
+      if (ans == "") {
+        ans = cp;
+      } else {
+        ans = ans > cp ? cp : ans;
+      }
     }
   }
 
-  if (ti == -1) {
-    cout << no << endl;
-
-    return 0;
-  }
-
-  string s = sd;
-  for (int i = 0; i < t.size(); i++) {
-    char c = t.at(i);
-
-    s.at(ti + i) = c;
-  }
-
-  for (int i = 0; i < s.size(); i++) {
-    if (s.at(i) == '?') {
-      s.at(i) = 'a';
-    }
-  }
-
-  cout << s << endl;
+  cout << ans << endl;
 
   return 0;
 }
