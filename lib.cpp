@@ -15,12 +15,17 @@ bool compareGreater(vector<int> prev, vector<int> curr) {
 // 桁数取得
 int getDigits(int num) { return to_string(num).length(); }
 
+// lcm
+int lcm(int x, int y) { return (x * y) / __gcd(x, y); }
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
   vector<int> a;
   sort(a.begin(), a.end(), greater<int>());  // greaterの書き方
+
+  cout << lcm(2, 3) << endl;
 
   return 0;
 }
