@@ -1,37 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
 
-int n, k;
-vector<int> a;
+// x番の組織が親組織に提出する枚数を返す
+// childrenは組織の関係を表す2次元配列(参照渡し)
+int count_report_num(vector<vector<int>> &children, int x) {
+  // (ここに追記して再帰関数を実装する)
 
-bool dfs(int idx, int sum) {
-  if (idx == n) return sum == k;
+  // 子がなければ return 1
+  if (children.at(x).size() == 0) return 1;
 
-  int num = a.at(idx);
-
-  if (dfs(idx + 1, sum)) return true;
-
-  if (dfs(idx + 1, sum + num)) return true;
-
-  return false;
-}
-
-int main() {
-  cin.tie(0);
-  ios::sync_with_stdio(false);
-
-  cin >> n >> k;
-
-  for (int i = 0; i < n; i++) {
-    int ai;
-    cin >> ai;
-    a.push_back(ai);
+  int sum = 1;
+  vector<int> cx = children.at(x);
+  for (int i = 0; i < cx.size(); i++) {
+    sum += count_report_num(children, cx.at(i));
   }
 
-  bool ans = dfs(0, 0);
+  return sum;
+}
 
-  cout << (ans ? "Yes" : "No") << endl;
+// これ以降の行は変更しなくてよい
 
-  return 0;
+int main() {
+  int N;
+  cin >> N;
+
+  vector<int> p(N);  // 各組織の親組織を示す配列
+  p.at(0) = -1;  // 0番組織の親組織は存在しないので-1を入れておく
+  for (int i = 1; i < N; i++) {
+    cin >> p.at(i);
+  }
+
+  // 組織の関係から2次元配列を作る
+  vector<vector<int>> children(N);  // ある組織の子組織の番号一覧
+  for (int i = 1; i < N; i++) {
+    int parent = p.at(i);              // i番の親組織の番号
+    children.at(parent).push_back(i);  // parentの子組織一覧にi番を追加
+  }
+
+  // 各組織について、答えを出力
+  for (int i = 0; i < N; i++) {
+    cout << count_report_num(children, i) << endl;
+  }
 }

@@ -18,6 +18,15 @@ int getDigits(int num) { return to_string(num).length(); }
 // lcm
 int lcm(int x, int y) { return (x * y) / __gcd(x, y); }
 
+// gcd ビルトインで__gcdがあるけど、それが使えないとき用
+int gcd(int a, int b) {
+  if (b == 0) return a;
+
+  if (a < b) return gcd(b, a);
+
+  return gcd(b, a % b);
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
