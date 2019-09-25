@@ -2,6 +2,8 @@
 using namespace std;
 typedef long long ll;
 
+const int MOD = 1000000007;
+
 // vectorの i=0 の要素でソート: 昇順の例 / 小 -> 大 / asc
 bool compareVector(vector<int> prev, vector<int> curr) {
   return prev.at(0) < curr.at(0);
