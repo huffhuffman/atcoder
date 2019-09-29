@@ -29,6 +29,29 @@ int gcd(int a, int b) {
   return gcd(b, a % b);
 }
 
+// 素因数分解 各素因数の個数の配列を返す O(√n)
+vector<int> getPrimeFactors(int n) {
+  vector<int> p(n + 1, 0);
+
+  if (n == 0) return p;
+
+  p.at(1) = 1;
+
+  int num = n;
+  for (int i = 2; i * i <= n; i++) {
+    while (num % i == 0) {
+      num /= i;
+      p.at(i)++;
+    }
+
+    if (num == 1) break;
+  }
+
+  if (num != 1) p.at(num)++;
+
+  return p;
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
