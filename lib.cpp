@@ -4,6 +4,26 @@ typedef long long ll;
 
 const int MOD = 1000000007;
 
+int shakutori(int n, vector<int> &v) {
+  ll sum = 0;
+  int ans = 0;
+
+  bool condition; // rを右に進められる条件を書く
+
+  int r = 0;
+  for (int l = 0; l < n; l++) {
+    while (r < n && condition) {
+      sum += v[r];
+      ++r;
+    }
+
+    ans += r - l; // conditionを満たす個数を求める尺取り
+    sum -= v[l];
+  }
+
+  return ans;
+}
+
 // vectorの i=0 の要素でソート: 昇順の例 / 小 -> 大 / asc
 bool compareVector(vector<int> prev, vector<int> curr) {
   return prev.at(0) < curr.at(0);
