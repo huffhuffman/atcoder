@@ -3,12 +3,38 @@ using namespace std;
 typedef long long ll;
 
 const int MOD = 1000000007;
+const int INF = 1001001001;
+
+
+// run length分割した配列を返す
+// 例: "aabbcccd" -> return [['a', 'a'], ['b', 'b'], ['c', 'c', 'c'], ['d']]
+vector<vector<char>> getRuns(string s) {
+  vector<vector<char>> runs;
+
+  vector<char> tmp;
+  for (int i = 0; i < s.size(); i++) {
+    if (tmp.size() < 1 || tmp.back() == s[i]) {
+      tmp.push_back(s[i]);
+    } else {
+      runs.push_back(tmp);
+
+      tmp.clear();
+      tmp.push_back(s[i]);
+    }
+
+    if (i == s.size() - 1) {
+      runs.push_back(tmp);
+    }
+  }
+
+  return runs;
+}
 
 int shakutori(int n, vector<int> &v) {
   ll sum = 0;
   int ans = 0;
 
-  bool condition; // rを右に進められる条件を書く
+  bool condition;  // rを右に進められる条件を書く
 
   int r = 0;
   for (int l = 0; l < n; l++) {
@@ -17,7 +43,7 @@ int shakutori(int n, vector<int> &v) {
       ++r;
     }
 
-    ans += r - l; // conditionを満たす個数を求める尺取り
+    ans += r - l;  // conditionを満たす個数を求める尺取り
     sum -= v[l];
   }
 

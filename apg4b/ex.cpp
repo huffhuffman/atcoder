@@ -1,41 +1,89 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
 
-vector<int> getPrimeFactors(int n) {
-  vector<int> p(n + 1, 0);
+// O1
+int f0(int N) {
+  return 1;
+}
 
-  if (n == 0) return p;
-
-  p.at(1) = 1;
-
-  int num = n;
-  for (int i = 2; i * i <= n; i++) {
-    while (num % i == 0) {
-      num /= i;
-      p.at(i)++;
-    }
-
-    if (num == 1) break;
+// O(N)
+int f1(int N, int M) {
+  int s = 0;
+  for (int i = 0; i < N; i++) {
+    s++;
   }
+  for (int i = 0; i < M; i++) {
+    s++;
+  }
+  return s;
+}
 
-  if (num != 1) p.at(num)++;
+// O(N log N)
+int f2(int N) {
+  int s = 0;
+  for (int i = 0; i < N; i++) {
+      int t = N;
+      int cnt = 0;
+      while (t > 0) {
+        cnt++;
+        t /= 2;
+      }
+      s += cnt;
+  }
+  return s;
+}
 
-  return p;
+// O(3**3)
+int f3(int N) {
+  int s = 0;
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      s++;
+    }
+  }
+  return s;
+}
+
+// O(NN)
+int f4(int N) {
+  int s = 0;
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      s += i + j;
+    }
+  }
+  return s;
+}
+
+// O(NM)
+int f5(int N, int M) {
+  int s = 0;
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < M; j++) {
+      s += i + j;
+    }
+  }
+  return s;
 }
 
 int main() {
-  cin.tie(0);
-  ios::sync_with_stdio(false);
+  int N, M;
+  cin >> N >> M;
 
-  int n;
-  cin >> n;
+  int a0 = -1, a1 = -1, a2 = -1, a3 = -1, a4 = -1, a5 = -1;
 
-  vector<int> v = getPrimeFactors(n);
+  // 計算量が最も大きいもの1つだけコメントアウトする
+  a0 = f0(N);
+  a1 = f1(N, M);
+  a2 = f2(N);
+  a3 = f3(N);
+  // a4 = f4(N);
+  a5 = f5(N, M);
 
-  for (int i = 0; i < v.size(); i++) {
-    cout << i << ": " << v.at(i) << endl;
-  }
-
-  return 0;
+  cout << "f0: " << a0 << endl;
+  cout << "f1: " << a1 << endl;
+  cout << "f2: " << a2 << endl;
+  cout << "f3: " << a3 << endl;
+  cout << "f4: " << a4 << endl;
+  cout << "f5: " << a5 << endl;
 }
