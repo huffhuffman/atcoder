@@ -7,28 +7,29 @@ int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  int n, wl;
+  cin >> n >> wl;
 
-  vector<int> a(n), b(n), c(n);
+  vector<int> w(n), v(n);
   for (int i = 0; i < n; i++) {
-    cin >> a[i] >> b[i] >> c[i];
+    cin >> w[i] >> v[i];
   }
 
-  vector<vector<int>> dp(n + 1, vector<int>(3, 0));
-  int A = 0;
-  int B = 1;
-  int C = 2;
+  vector<vector<ll>> dp(n + 1, vector<ll>(wl + 1, 0));
+  for (int i = 0; i < n; i++) {
+    // dp := i-1までの品物からsumWを超えないように選んだときの価値の総和のmax
+    for (int sumW = 0; sumW <= wl; sumW++) {
+      if (sumW - w[i] >= 0) {
+        // iを選ぶ場合
+        dp[i + 1][sumW] = max(dp[i + 1][sumW], dp[i][sumW - w[i]] + v[i]);
+      }
 
-  for (int i = 0; i <= n; i++) {
-    if (i == 0) continue;
-
-    dp[i][A] = a[i - 1] + max(dp[i - 1][B], dp[i - 1][C]);
-    dp[i][B] = b[i - 1] + max(dp[i - 1][A], dp[i - 1][C]);
-    dp[i][C] = c[i - 1] + max(dp[i - 1][A], dp[i - 1][B]);
+      // iを選ばない場合
+      dp[i + 1][sumW] = max(dp[i + 1][sumW], dp[i][sumW]);
+    }
   }
 
-  cout << max(dp[n][A], max(dp[n][B], dp[n][C])) << endl;
+  cout << dp[n][wl] << endl;
 
   return 0;
 }
