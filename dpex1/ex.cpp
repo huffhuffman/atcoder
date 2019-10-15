@@ -10,20 +10,35 @@ int main() {
   string s, t;
   cin >> s >> t;
 
-  vector<vector<string>> dp(s.size() + 1, vector<string>(t.size() + 1, ""));
-  for (int i = 1; i <= s.size(); i++) {
-    bool prevAdd = false;
-    for (int j = 1; j <= t.size(); j++) {
-      if (dp[i][j - 1] + t[j - 1] == dp[i - 1][j] + s[i - 1]) {
-        dp[i][j] = dp[i - 1][j] + s[i - 1];
-        prevAdd = true;
-      } else {
-        dp[i][j] = prevAdd ? dp[i][j - 1] : dp[i - 1][j];
+  vector<vector<int>> dp(s.size() + 1, vector<int>(t.size() + 1, 0));
+
+  for (int i = 0; i < s.size(); i++) {
+    for (int j = 0; j < t.size(); j++) {
+      if (s[i] == t[j]) {
+        dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i][j] + 1);
       }
+
+      dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i][j + 1]);
+      dp[i + 1][j + 1] = max(dp[i + 1][j + 1], dp[i + 1][j]);
     }
   }
 
-  cout << dp[s.size()][t.size()] << endl;
+  string ans = "";
+  int i = (int)s.size();
+  int j = (int)t.size();
+  while (i > 0 && j > 0) {
+    if (dp[i][j] == dp[i - 1][j]) {
+      --i;
+    } else if (dp[i][j] == dp[i][j - 1]) {
+      --j;
+    } else {
+      ans = s[i - 1] + ans;
+      --i;
+      --j;
+    }
+  }
+
+  cout << ans << endl;
 
   return 0;
 }
