@@ -18,20 +18,18 @@ int main() {
   }
 
   sort(l.begin(), l.end());
-  reverse(l.begin(), l.end());
 
   int ans = 0;
-  for (int t = 0; t < n; t++) {
-    for (int i = t + 1; i < n; i++) {
-      for (int j = i + 1; j < n; j++) {
-        int a = l[t];
-        int b = l[i];
-        int c = l[j];
+  for (int b = 0; b < n; b++) {
+    for (int a = 0; a < b; a++) {
+      int ab = l[a] + l[b];
 
-        if(a < b + c && b < a + c && c < b + a) {
-          ans++;
-        }
-      }
+      auto it = lower_bound(l.begin(), l.end(), ab);
+
+      int ri = distance(l.begin(), it);
+      int li = b + 1;
+
+      ans += ri - li;
     }
   }
 
