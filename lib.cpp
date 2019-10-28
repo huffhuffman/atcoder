@@ -104,6 +104,7 @@ int main() {
 
   vector<int> a;
   sort(a.begin(), a.end(), greater<int>());  // greaterの書き方
+  // sort(a.rbegin(), a.rend()); でも降順ソートになる
 
   cout << lcm(2, 3) << endl;
 
