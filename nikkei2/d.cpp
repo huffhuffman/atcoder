@@ -17,11 +17,6 @@ int main() {
     cin >> l[i] >> r[i] >> c[i];
   }
 
-  vector<int> d(n, INF); // 頂点dまでの最短距離
-  for (int i = 0; i < m; i++)
-  {
-    /* code */
-  }
   
 
   return 0;
