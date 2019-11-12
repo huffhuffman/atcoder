@@ -5,6 +5,19 @@ typedef long long ll;
 const int MOD = 1000000007;
 const int INF = 1001001001;
 
+// nCrとセット
+// Returns factorial of n
+int fact(int n) {
+  int res = 1;
+
+  for (int i = 2; i <= n; i++) {
+    res = res * i;
+  }
+
+  return res;
+}
+
+int nCr(int n, int r) { return fact(n) / (fact(r) * fact(n - r)); }
 
 // run length分割した配列を返す
 // 例: "aabbcccd" -> return [['a', 'a'], ['b', 'b'], ['c', 'c', 'c'], ['d']]
