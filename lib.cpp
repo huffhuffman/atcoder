@@ -5,7 +5,23 @@ typedef long long ll;
 const int MOD = 1000000007;
 const int INF = 1001001001;
 
-// nCrとセット
+// 繰り返し自乗法
+ll modpow(ll num, ll pow, ll mod) {
+  if (pow == 0) {
+    return 1;
+  }
+
+  if (pow % 2 == 0) {
+    ll res = modpow(num, pow / 2, mod);
+
+    return res * res % mod;
+  }
+
+  return num * modpow(num, pow - 1, mod);
+}
+
+
+// nCrとセット（modには対応してない版）
 // Returns factorial of n
 int fact(int n) {
   int res = 1;
