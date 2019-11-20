@@ -1,43 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-#define all(x) (x).begin(), (x).end()
-const int mod = 1000000007, MAX = 200003, INF = 1 << 30;
+const int MOD = 1000000007;
+const int MAX = 2000000;
 
-ll rui(ll a, ll b) {
-  ll ans = 1;
-  while (b > 0) {
-    if (b & 1) ans = ans * a % mod;
-    a = a * a % mod;
-    b /= 2;
+ll fac[MAX], finv[MAX], inv[MAX];
+
+// テーブルを作る前処理
+void COMinit() {
+  fac[0] = fac[1] = 1;
+  finv[0] = finv[1] = 1;
+  inv[1] = 1;
+  for (int i = 2; i < MAX; i++) {
+    fac[i] = fac[i - 1] * i % MOD;
+    inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;
+    finv[i] = finv[i - 1] * inv[i] % MOD;
   }
-  return ans;
 }
 
-ll comb(ll a, ll b) {
-  ll ans = 1;
-  for (ll i = a; i > a - b; i--) {
-    ans = ans * i % mod;
-  }
-  for (ll i = 1; i <= b; i++) {
-    ans = (ans * rui(i, mod - 2)) % mod;
-  }
-  return ans;
+// 二項係数計算
+ll COM(int n, int k) {
+  if (n < k) return 0;
+  if (n < 0 || k < 0) return 0;
+  return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 }
 
 int main() {
-  int X, Y;
-  cin >> X >> Y;
-  if ((X + Y) % 3 != 0)
+  ll x, y;
+  cin >> x >> y;
+
+  ll n = (x + y) / 3;
+  ll k = 2 * n - x;
+
+  if ((x + y) % 3 != 0) {
     cout << 0 << endl;
-  else {
-    int A = (X + Y) / 3;
-    X -= A;
-    Y -= A;
-    if (X < 0 || Y < 0)
-      cout << 0 << endl;
-    else {
-      cout << comb(A, X) << endl;
-    }
+  } else {
+    COMinit();
+    ll ans = COM(n, k);
+
+    cout << ans << endl;
   }
+
+  return 0;
 }
