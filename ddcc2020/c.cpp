@@ -10,28 +10,61 @@ int main() {
 
   cin >> h >> w >> k;
 
-  vector<string> a(h), b(h);
+  vector<string> a(h);
+  vector<vector<int>> b(h, vector<int>(w, 0));
   for (int i = 0; i < h; i++) {
-    string tmp;
-    cin >> tmp;
-    a[i] = tmp;
-    b[i] = tmp;
+    cin >> a[i];
   }
 
-  int yokoc = 0;
-  deque<int> yq, tq;
+  int curr = 1;
   for (int i = 0; i < h; i++) {
-    for (int j = 0; j < w; j++) {
-      char c = b[i][j];
+    if (a[i].find("#") == a[i].npos) {
+      continue;
+    }
 
+    bool fst = true;
+
+    for (int j = 0; j < w; j++) {
+      char c = a[i][j];
       if (c == '#') {
-        yokoc++;
-        yq.push_back(i);
-        break;
+        if (fst) {
+          fst = false;
+        } else {
+          curr++;
+        }
       }
+      b[i][j] = curr;
+    }
+    curr++;
+  }
+
+  for (int i = 0; i < h; i++) {
+    if (b[i][0] != 0) {
+      continue; // すでに処理済みの行はなにもしない
+    }
+
+    // 未処理の行を処理
+    if (i == 0) {
+      int targeti;
+      for (int ii = i; ii < h; ii++) {
+        if (b[ii][0] != 0) {
+          targeti = ii;
+          break;
+        }
+      }
+
+      b[i] = b[targeti];
+    } else {
+      b[i] = b[i - 1];
     }
   }
 
+  for (int i = 0; i < h; i++) {
+    for (int j = 0; j < w; j++) {
+      cout << (j ? " " : "") << b[i][j];
+    }
+    cout << endl;
+  }
 
   return 0;
 }
