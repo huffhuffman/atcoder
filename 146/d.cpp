@@ -3,77 +3,55 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> P;
 
+struct Edge {
+  int to, id;
+};
+
+vector<vector<Edge>> g;
+vector<int> ans;
+
+// v: ノード, p: 親, u: 子
+void dfs(int v, int c = -1, int p = -1) {
+  int k = 1;
+  for (auto e : g[v]) {
+    int u = e.to;
+    int ei = e.id;
+    if (u == p) continue;  // 親はみない
+    if (k == c) k++;
+    ans[ei] = k;
+    k++;
+    dfs(u, ans[ei], v);
+  }
+}
+
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
   int n;
   cin >> n;
-
-  vector<int> a(n), b(n);
-  vector<vector<int>> g(n);
+  g.resize(n);
+  ans = vector<int>(n - 1);
   for (int i = 0; i < n - 1; i++) {
-    cin >> a[i] >> b[i];
-    a[i]--;
-    b[i]--;
-    g[a[i]].push_back(b[i]);
-    g[b[i]].push_back(a[i]);
+    int a, b;
+    cin >> a >> b;
+    --a;
+    --b;
+
+    g[a].push_back((Edge){b, i});
+    g[b].push_back((Edge){a, i});
   }
 
-  vector<int> e(n, 0);  // 頂点iに属している辺の数
+  dfs(0);
+
   int k = 0;
-  for (int i = 0; i < n - 1; i++) {
-    e[a[i]]++;
-    e[b[i]]++;
-
-    k = max(k, e[a[i]]);
-    k = max(k, e[b[i]]);
+  for (int i = 0; i < n; i++) {
+    k = max(k, int(g[i].size()));
   }
-
   cout << k << endl;
 
-  int root = 0;
-  vector<vector<int>> color(n, vector<int>(n, 0));
-  vector<bool> pushed(n, false);
-  queue<int> Q;
-
-  Q.push(root);
-  pushed[root] = true;
-
-  while (!Q.empty()) {
-    int u = Q.front();
-
-    vector<bool> ccc(k, true);
-    int currColor;
-    for (int i = 0; i < g[u].size(); i++) {
-      int v = g[u][i];
-
-      if (color[u][v] != 0) {
-        ccc[color[u][v] - 1] = false;
-      }
-
-      for (int i = 0; i < k; i++) {
-        if (ccc[i]) {
-          currColor = i;
-          break;
-        }
-      }
-
-      if (!pushed[v]) {
-        Q.push(v);
-        pushed[v] = true;
-
-        color[u][v] = currColor + 1;
-        color[v][u] = currColor + 1;
-        ccc[currColor] = false;
-      }
-    }
-
-    Q.pop();
-  }
-
   for (int i = 0; i < n - 1; i++) {
-    cout << color[a[i]][b[i]] << endl;
+    cout << ans[i] << endl;
   }
 
   return 0;
