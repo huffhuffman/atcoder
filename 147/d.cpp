@@ -9,17 +9,31 @@ int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  int N;
+  cin >> N;
 
-  vector<ll> a(n);
-  for (int i = 0; i < n; i++) {
-    cin >> a[i];
+  ll A[301010];
+
+  for (int i = 0; i < N; i++) {
+    cin >> A[i];
   }
 
-  for (int i = 0; i < n; i++) {
-    ll num = a[i];
+  ll ans = 0;
+  for (int b = 0; b < 60; b++) {
+    ll msk = 1LL << b;
+
+    ll zero = 0, one = 0;
+    for (int i = 0; i < N; i++) {
+      if (A[i] & msk) {
+        one++;
+      } else {
+        zero++;
+      }
+    }
+
+    ans += msk % MOD * zero % MOD * one % MOD;
   }
+  cout << ans % MOD << endl;
 
   return 0;
 }

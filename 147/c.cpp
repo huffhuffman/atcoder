@@ -10,33 +10,58 @@ int main() {
   int n;
   cin >> n;
 
-  vector<int> a(n);
-  vector<vector<int>> x(n), y(n);
+  vector<vector<P>> ixy(n);
   for (int i = 0; i < n; i++) {
-    cin >> a[i];
+    int a;
+    cin >> a;
 
-    for (int j = 0; j < a[i]; j++) {
-      int tx, ty;
-      cin >> tx >> ty;
-      tx--;
-      x[i].push_back(tx);
-      y[i].push_back(ty);
+    ixy[i].resize(a);
+
+    for (int j = 0; j < a; j++) {
+      cin >> ixy[i][j].first >> ixy[i][j].second;
+
+      ixy[i][j].first--;
     }
   }
 
-  bitset<5> bit(4);
+  int ans = 0;
+  for (int i = 0; i < (1 << n); i++) {
+    // bit全探索
+    bitset<20> bit(i);
 
-  cout << bit << endl;
+    bool ok = true;
 
-  bit[0] = 1;
+    set<int> kinds;
 
-  cout << bit << endl;
+    for (int j = 0; j < n; j++) {
+      if (bit[j]) {  // ビットが立っている = 正直物としてkindsに何人目かをset
+        kinds.emplace(j);
+      }
+    }
 
-  bit[1] = 1;
+    // 証言と矛盾しないかをチェック
+    for (auto witness : kinds) {
+      for (auto p : ixy[witness]) {
+        int who = p.first;
+        int f = p.second;
 
-  cout << bit << endl;
+        if (!f && kinds.find(who) != kinds.end()) {
+          ok = false;  // 証言でunkindな人がkind setにいたら矛盾
+        }
 
-  cout << bit[20] << endl;
+        if (f && kinds.find(who) == kinds.end()) {
+          ok = false;  // 証言でkindな人がkind setにいなかったら無常}
+        }
+      }
 
-  return 0;
-}
+      if (ok) {
+        // 矛盾がなければあり得る
+        // あり得る場合は正直物の数を数えてchmax
+        ans = max(ans, (int)kinds.size());
+      }
+    }
+
+    cout << ans << endl;
+
+    return 0;
+  }
