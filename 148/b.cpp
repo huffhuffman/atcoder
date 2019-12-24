@@ -10,16 +10,13 @@ int main() {
   int n;
   cin >> n;
 
-  vector<int> a(n * 3);
-  for (int i = 0; i < n * 3; i++) {
-    cin >> a[i];
-  }
+  string s, t;
+  cin >> s >> t;
 
-  sort(a.rbegin(), a.rend());
-
-  ll ans = 0;
-  for (int i = 1; i <= n; i++) {
-    ans += a[i * 2 - 1];
+  string ans = "";
+  for (int i = 0; i < n; i++) {
+    ans += s[i];
+    ans += t[i];
   }
 
   cout << ans << endl;
