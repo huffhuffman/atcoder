@@ -5,6 +5,33 @@ typedef long long ll;
 const int MOD = 1000000007;
 const int INF = 1001001001;
 
+// エラトステネスの篩
+void sieve(int num){
+  int N = 1000000; // Nまで調べる
+  bool arr[1000000]; // arr[i] := 整数 i が素数かどうか
+
+  // 篩を初期化
+	for(int i = 0; i < N; i++){
+		arr[i] = 1;
+	}
+
+  // 篩落とす
+	for(int i = 2; i < sqrt(N); i++){
+		if(arr[i]){
+			for(int j = 0; i * (j + 2) < N; j++){
+				arr[i *(j + 2)] = 0;
+			}
+		}
+	}
+
+	for(int i = 0; i < N; i++){
+		if(arr[i]){
+      // i == 素数
+      cout << i << endl;
+		}
+	}
+}
+
 // 繰り返し自乗法
 ll modpow(ll num, ll pow, ll mod) {
   if (pow == 0) {
