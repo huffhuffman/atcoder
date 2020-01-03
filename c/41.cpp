@@ -15,21 +15,17 @@ int main() {
     cin >> a[i];
   }
 
-  map<ll, ll> dp;
+  priority_queue<P> pq;
   for (int i = 0; i < n; i++) {
-    for (int num = -100; num <= 100; num++) {
-      int v = (num - a[i]) * (num - a[i]);
-
-      dp[num] += v;
-    }
+    pq.emplace(P(a[i], i + 1));
   }
 
-  ll ans = 1e9;
-  for (auto p : dp) {
-    ans = min(ans, p.second);
-  }
+  for (int i = 0; i < n; i++) {
+    P p = pq.top();
+    pq.pop();
 
-  cout << ans << endl;
+    cout << p.second << endl;
+  }
 
   return 0;
 }
