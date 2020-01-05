@@ -10,17 +10,7 @@ int main() {
   int n;
   cin >> n;
 
-  vector<int> a(n * 3);
-  for (int i = 0; i < n * 3; i++) {
-    cin >> a[i];
-  }
-
-  sort(a.rbegin(), a.rend());
-
-  ll ans = 0;
-  for (int i = 1; i <= n; i++) {
-    ans += a[i * 2 - 1];
-  }
+  ll ans = (n - 2) * 180;
 
   cout << ans << endl;
 
