@@ -110,20 +110,19 @@ vector<vector<char>> getRuns(string s) {
   return runs;
 }
 
+// 尺取り
 int shakutori(int n, vector<int> &v) {
   ll sum = 0;
   int ans = 0;
 
-  bool condition;  // rを右に進められる条件を書く
-
   int r = 0;
   for (int l = 0; l < n; l++) {
-    while (r < n && condition) {
+    while (r < n /* && r を右に進められる条件を書く*/) {
       sum += v[r];
       ++r;
     }
 
-    ans += r - l;  // conditionを満たす個数を求める尺取り
+    ans += r - l;  // 条件を満たす個数を求める尺取り
     sum -= v[l];
   }
 
