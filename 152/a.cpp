@@ -7,12 +7,12 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n, k;
-  cin >> n >> k;
+  int n, m;
+  cin >> n >> m;
 
-  ll ans = 0;
-  for (int i = 0; i + k - 1 < n; i++) {
-    ans++;
+  string ans = "Yes";
+  if (n != m) {
+    ans = "No";
   }
 
   cout << ans << endl;
