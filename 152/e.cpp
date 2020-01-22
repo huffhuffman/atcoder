@@ -1,21 +1,45 @@
 #include <bits/stdc++.h>
-#include <boost/multiprecision/cpp_int.hpp>
-
 using namespace std;
-using namespace boost::multiprecision;
+typedef long long ll;
+typedef pair<int, int> P;
 
 const int MOD = 1000000007;
 
-cpp_int gcd(cpp_int a, cpp_int b) {
-  if (b == 0) return a;
+map<ll, ll> getPrimeFactors(int n) {
+  map<ll, ll> p;
 
-  if (a < b) return gcd(b, a);
+  if (n == 0) return p;
 
-  return gcd(b, a % b);
+  p[1] = 1;
+
+  int num = n;
+  for (int i = 2; i * i <= n; i++) {
+    while (num % i == 0) {
+      num /= i;
+      p[i]++;
+    }
+
+    if (num == 1) break;
+  }
+
+  if (num != 1) p[num]++;
+
+  return p;
 }
 
-// lcm
-cpp_int lcm(cpp_int x, cpp_int y) { return (x * y) / gcd(x, y); }
+ll modpow(ll a, ll n, ll mod) {
+  ll res = 1;
+  while (n > 0) {
+    if (n & 1) res = res * a % mod;
+    a = a * a % mod;
+    n >>= 1;
+  }
+  return res;
+}
+
+ll modinv(ll a, ll mod) {
+    return modpow(a, mod - 2, mod);
+}
 
 int main() {
   cin.tie(nullptr);
@@ -23,33 +47,33 @@ int main() {
 
   int n;
   cin >> n;
-  int a[n];
+  vector<int> a(n);
   for (int i = 0; i < n; i++) {
     cin >> a[i];
   }
 
-  bool all = true;
-  cpp_int lcms = a[0];
-  for (int i = 1; i < n; i++) {
-    lcms = lcm(lcms, a[i]) % MOD;
+  map<ll, ll> lcmP;
+  for (int k = 0; k < n; k++) {
+    map<ll, ll> primes = getPrimeFactors(a[k]);
 
-    if (a[i] != a[i - 1]) {
-      all = false;
+    for (auto p : primes) {
+      lcmP[p.first] = max(lcmP[p.first], p.second);
     }
   }
 
-  cpp_int ans = 0;
+  ll lcmNum = 1;
+  for (auto lp : lcmP) {
+    lcmNum *= modpow(lp.first, lp.second, MOD);
+    lcmNum %= MOD;
+  }
+
+  ll ans = 0;
   for (int i = 0; i < n; i++) {
-    cpp_int num = lcms / a[i];
-
-    if (all) {
-      num = 1;
-    }
-
-    ans += num;
+    ans += lcmNum * modinv(a[i], MOD) % MOD;
+    ans %= MOD; 
   }
 
-  cout << ans % MOD << endl;
+  cout << ans << endl;
 
   return 0;
 }

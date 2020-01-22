@@ -47,6 +47,36 @@ ll modpow(ll num, ll pow, ll mod) {
   return num * modpow(num, pow - 1, mod);
 }
 
+/* mod 逆元 */
+ll modpow(ll a, ll n, ll mod) {
+    ll res = 1;
+    while (n > 0) {
+        if (n & 1) res = res * a % mod;
+        a = a * a % mod;
+        n >>= 1;
+    }
+    return res;
+}
+
+// 上とセット
+ll modinv2(ll a, ll mod) {
+    return modpow(a, mod - 2, mod);
+}
+/* ここまで*/
+
+// 単体逆元
+ll modinv(ll a, ll m) {
+    ll b = m, u = 1, v = 0;
+    while (b) {
+        ll t = a / b;
+        a -= t * b; swap(a, b);
+        u -= t * v; swap(u, v);
+    }
+    u %= m; 
+    if (u < 0) u += m;
+    return u;
+}
+
 // nCk mod p (mod対応版nCk)
 /* ここから */
 const int MAX = 2000000; // 問題によって変更する(パスカルの三角形の段数、nCkのnの最大)
