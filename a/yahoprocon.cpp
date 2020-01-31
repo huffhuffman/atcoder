@@ -7,12 +7,19 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int a, b, c;
-  cin >> a >> b >> c;
+  int n, k;
+  cin >> n >> k;
 
-  string ans = "No";
-  if (a == b && a == c) {
-    ans = "Yes";
+  int num = 0;
+  if (n % 2 == 0) {
+    num = n / 2;
+  } else {
+    num = (n + 1) / 2;
+  }
+
+  string ans = "YES";
+  if (k > num) {
+    ans = "NO";
   }
 
   cout << ans << endl;

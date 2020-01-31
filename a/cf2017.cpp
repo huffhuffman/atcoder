@@ -7,15 +7,15 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int a, b, c;
-  cin >> a >> b >> c;
+  string s;
+  cin >> s;
 
-  string ans = "No";
-  if (a == b && a == c) {
-    ans = "Yes";
-  }
+  regex re(R"(.+(?=FESTIVAL$))");
+  smatch m;
 
-  cout << ans << endl;
+  regex_search(s, m, re);
+
+  cout << m.str() << endl;
 
   return 0;
 }
