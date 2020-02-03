@@ -7,19 +7,13 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int a, b, c, d;
-  cin >> a >> b >> c >> d;
+  int n, h, w;
+  cin >> n >> h >> w;
 
-  map<int, int> m;
-  m[a]++;
-  m[b]++;
-  m[c]++;
-  m[d]++;
+  int vr = n - h + 1;
+  int hr = n - w + 1;
 
-  string ans = "NO";
-  if (m[1] && m[9] && m[7] && m[4]) {
-    ans = "YES";
-  }
+  int ans = vr * hr;
 
   cout << ans << endl;
 
