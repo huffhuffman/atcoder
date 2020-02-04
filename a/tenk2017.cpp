@@ -7,16 +7,12 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll x, y;
-  cin >> x >> y;
+  string s;
+  cin >> s;
 
-  ll ans = x;
+  int cnt = count(s.begin(), s.end(), '1');
 
-  if(x % y == 0) {
-    ans = -1;
-  }
-
-  cout << ans << endl;
+  cout << cnt << endl;
 
   return 0;
 }
