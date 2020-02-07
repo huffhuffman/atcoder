@@ -2,8 +2,8 @@
 using namespace std;
 typedef long long ll;
 
-const int MOD = 1000000007;
-const int INF = 1001001001;
+constexpr int MOD = 1000000007;
+constexpr int INF = 1001001001;
 
 // エラトステネスの篩
 void sieve(int num){
