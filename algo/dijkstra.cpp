@@ -4,13 +4,13 @@ typedef long long ll;
 typedef pair<int, int> P;  // fisrtは最短距離、 secondは頂点の番号
 constexpr int INF = 1001001001;
 
-struct edge {
+struct Edge {
   int to, cost;
 };
 
 int V, E;
 constexpr int MAX_V = 100000;
-vector<edge> G[MAX_V];  // G[i] = 頂点iに隣接するedgeのvectorからなる隣接リスト
+vector<Edge> G[MAX_V];  // G[i] = 頂点iに隣接するEdgeのvectorからなる隣接リスト
 // G[i][j].to でi から to への辺、 G[i][j].cost でその辺のコスト
 
 int d[MAX_V];
@@ -31,7 +31,7 @@ void dijkstra(int s) {
     if (d[v] < p.first) continue;
 
     for (int i = 0; i < G[v].size(); i++) {
-      edge e = G[v][i];
+      Edge e = G[v][i];
 
       if (d[e.to] > d[v] + e.cost) {
         d[e.to] = d[v] + e.cost;
@@ -47,12 +47,12 @@ int main() {
 
   cin >> V >> E;
 
-  int r;
+  int r; //始点
   cin >> r;
   for (int i = 0; i < E; i++) {
     int s, t, cost;
     cin >> s >> t >> cost;
-    edge e = {t, cost};
+    Edge e = {t, cost};
     G[s].push_back(e);
   }
 

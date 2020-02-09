@@ -27,23 +27,23 @@ int main() {
 
   int cnt = 0;
   while (cnt < v) {
-    bool upd = false;
+    bool updated = false;
     for (int i = 0; i < e; i++) {
-      int ss = i;
+      int from = i;
       for (int j = 0; j < adj[i].size(); j++) {
-        int tt = adj[i][j].first;
-        int ww = adj[i][j].second;
+        int to = adj[i][j].first;
+        int cost = adj[i][j].second;
 
-        if (d[ss] == INF) continue;
+        if (d[from] == INF) continue;
 
-        if (d[ss] + ww < d[tt]) {
-          d[tt] = d[ss] + ww;
-          upd = true;
+        if (d[from] + cost < d[to]) {
+          d[to] = d[from] + cost;
+          updated = true;
         }
       }
     }
 
-    if (!upd) {
+    if (!updated) {
       break;
     }
 
