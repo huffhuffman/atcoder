@@ -5,6 +5,9 @@ typedef long long ll;
 constexpr int MOD = 1000000007;
 constexpr int INF = 1001001001;
 
+constexpr int INF2 = numeric_limits<int>::max() / 2; // INT_MAX / 2
+constexpr int INFLL = numeric_limits<ll>::max() / 2; // LLONG_MAX / 2 
+
 // エラトステネスの篩
 void sieve(int num){
   int N = 1000000; // Nまで調べる
