@@ -12,37 +12,42 @@ int main() {
   string s;
   cin >> s;
 
+  reverse(s.begin(), s.end());
+  s += '0';
+
   ll keta = s.size();
 
-  reverse(s.begin(), s.end());
-
-  ll sum = 0;
-  bool age = false;
-  for (int i = 0; i < keta; i++) {
-    int num = s[i] - '0';
-
-    if (num == 0) continue;
-
-    if(age) {
-      num++;
+  int dp[keta + 1][2]; // 払う金額を決めるDP
+  // dp[i][j] := 下からi桁まで決めたとき、繰り下がりがjのときの最小枚数
+  for (int i = 0; i < keta + 1; i++) {
+    for (int j = 0; j < 2; j++) {
+      dp[i][j] = INF;
     }
+  }
 
-    if (num < 5) {
-      sum += num;
-      age = false;
-    } else if(num == 5) {
-      
-    } else {
-      if (i < keta - 1) {
-        sum += (10 - num);
-        age = true;
-      } else {
-        sum += (10 - num);
+  dp[0][0] = 0;
+  for (int i = 0; i < keta; i++) {
+    for (int j = 0; j < 2; j++) {
+      int x = s[i] - '0';
+
+      x += j; 
+
+      for (int a = 0; a < 10; a++) {
+        int ni = i + 1;
+        int nj = 0;
+        int b = a - x;
+        if (b < 0) {
+          nj = 1;
+          b += 10;
+        }
+        dp[ni][nj] = min(dp[ni][nj], dp[i][j] + a + b);
       }
     }
   }
 
-  cout << sum << endl;
+  int ans = dp[keta][0];
+
+  cout << ans << endl;
 
   return 0;
 }
