@@ -10,21 +10,18 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int a, b, k;
-  cin >> a >> b >> k;
+  string s;
+  cin >> s;
 
-  while (k) {
-    b += a / 2;
-    a /= 2;
-    --k;
+  int w;
+  cin >> w;
 
-    if (k == 0) break;
-    a += b / 2;
-    b /= 2;
-    --k;
+  string ans = "";
+  for (int i = 0; i < s.size(); i += w) {
+    ans += s[i];
   }
 
-  cout << a << " " << b << ln;
+  cout << ans << ln;
 
   return 0;
 }
