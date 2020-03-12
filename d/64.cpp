@@ -11,37 +11,40 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, h;
-  cin >> n >> h;
-  vector<ll> a(n), b(n);
+  int n;
+  cin >> n;
+  deque<char> s(n);
   for (int i = 0; i < n; i++) {
-    cin >> a[i] >> b[i];
+    cin >> s[i];
   }
 
-  sort(all(b));
-  reverse(all(b));
-
-  ll ma = *max_element(all(a));
-
-  ll cnt = 0;
+  int r = 0;
+  int l = 0;
   for (int i = 0; i < n; i++) {
-    if (b[i] < ma) {
-      break;
-    }
-
-    h -= b[i];
-    cnt++;
-
-    if (h <= 0) {
-      break;
+    if (s[i] == '(') r++;
+    if (s[i] == ')') {
+      if (r > 0) {
+        r--;
+      } else {
+        l++;
+      }
     }
   }
 
-  if (h > 0) {
-    cnt += (h + ma - 1) / ma;
+  while (l > 0) {
+    s.push_front('(');
+    l--;
   }
 
-  cout << cnt << endl;
+  while (r > 0) {
+    s.push_back(')');
+    r--;
+  }
+
+  for (int i = 0; i < s.size(); i++) {
+    cout << s[i];
+  }
+  cout << endl;
 
   return 0;
 }
