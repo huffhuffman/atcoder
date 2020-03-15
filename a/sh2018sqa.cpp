@@ -11,17 +11,18 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  int a, b;
+  cin >> a >> b;
 
-  ll ans = 1;
-
-  for (int i = 1; i <= n; i++) {
-    ans *= i % MOD;
-    ans %= MOD;
+  string ans = "x";
+  if (a + b == 15) {
+    ans = "+";
+  }
+  if (a * b == 15) {
+    ans = "*";
   }
 
-  cout << ans << ln;
+  cout << ans << endl;
 
   return 0;
 }

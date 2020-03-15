@@ -11,14 +11,13 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  ll h, w;
+  cin >> h >> w;
 
-  ll ans = 1;
+  ll ans = (h * w + 1) / 2;
 
-  for (int i = 1; i <= n; i++) {
-    ans *= i % MOD;
-    ans %= MOD;
+  if (h == 1 || w == 1) {
+    ans = 1;
   }
 
   cout << ans << ln;

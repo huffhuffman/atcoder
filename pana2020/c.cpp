@@ -11,14 +11,16 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  ll a, b, c;
+  cin >> a >> b >> c;
 
-  ll ans = 1;
+  ll t = c - a - b;
 
-  for (int i = 1; i <= n; i++) {
-    ans *= i % MOD;
-    ans %= MOD;
+  string ans;
+  if (t > 0 && 4 * a * b < t * t) {
+    ans = "Yes";
+  } else {
+    ans = "No";
   }
 
   cout << ans << ln;
