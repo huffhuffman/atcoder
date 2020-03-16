@@ -11,17 +11,19 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n;
-  cin >> n;
+  ll a, b;
+  cin >> a >> b;
 
-  ll ans = 1;
-
-  for (int i = 1; i <= n; i++) {
-    ans *= i % MOD;
-    ans %= MOD;
+  ll ans = -1;
+  for (int i = 1; i <= 2000000; i++) {
+    ll na = i * 0.08;
+    ll nb = i * 0.1;
+    if (na == a && nb == b) {
+      ans = i;
+      break;
+    }
   }
 
   cout << ans << ln;
-
   return 0;
 }
