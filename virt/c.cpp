@@ -11,30 +11,22 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n, m;
-  cin >> n >> m;
-  vector<int> s(m), c(m);
-  for (int i = 0; i < m; i++) {
-    cin >> s[i] >> c[i];
-    s[i]--;
+  int n;
+  cin >> n;
+  vector<int> x(n);
+  for (int i = 0; i < n; i++) {
+    cin >> x[i];
   }
 
-  int ans = -1;
-
-  for (int i = 0; i <= 10000; i++) {
-    string snum = to_string(i);
-    if (snum.size() != n) continue;
-
-    bool ok = true;
-    for (int j = 0; j < m; j++) {
-      if ((snum[s[j]] - '0') != c[j]) {
-        ok = false;
-        break;
-      }
+  ll ans = INF;
+  for (int p = 1; p <= 100; p++) {
+    ll sum = 0;
+    for (int i = 0; i < n; i++) {
+      ll t = (x[i] - p);
+      sum += t * t;
     }
-    if (ok) {
-      ans = i;
-      break;
+    if (sum < ans) {
+      ans = sum;
     }
   }
 

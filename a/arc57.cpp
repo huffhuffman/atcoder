@@ -11,14 +11,21 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n, r;
-  cin >> n >> r;
+  ll a, k;
+  cin >> a >> k;
 
-  int ans = 0;
-  if (n >= 10) {
-    ans = r;
+  ll ans = 0;
+  if (k == 0) {
+    ans = 2 * pow(10, 12) - a;
   } else {
-    ans = 100 * (10 - n) + r;
+    ll t = a;
+
+    while (t < 2 * pow(10, 12)) {
+      ll prev = t;
+
+      t += prev * k + 1;
+      ans++;
+    }
   }
 
   cout << ans << ln;
