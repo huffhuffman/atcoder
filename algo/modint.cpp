@@ -66,6 +66,7 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
+  // abc156-dのサンプル
   int n, a, b;
   cin >> n >> a >> b;
 
