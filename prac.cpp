@@ -11,19 +11,14 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll a, b;
-  cin >> a >> b;
+  bitset<5> bits(9);
 
-  ll ans = -1;
-  for (int i = 1; i <= 2000000; i++) {
-    ll na = i * 0.08;
-    ll nb = i * 0.1;
-    if (na == a && nb == b) {
-      ans = i;
-      break;
-    }
-  }
+  cout << bits[0] << endl; // 1
+  cout << bits[1] << endl; // 0
+  cout << bits[2] << endl; // 0
+  cout << bits[3] << endl; // 1
+  cout << bits[4] << endl; // 0
+  cout << bits[10] << endl; // 0
 
-  cout << ans << ln;
   return 0;
 }
