@@ -5,34 +5,34 @@ typedef long long ll;
 constexpr int MOD = 1000000007;
 constexpr int INF = 1001001001;
 
-constexpr int INF2 = numeric_limits<int>::max() / 2; // INT_MAX / 2
-constexpr int INFLL = numeric_limits<ll>::max() / 2; // LLONG_MAX / 2 
+constexpr int INF2 = numeric_limits<int>::max() / 2;  // INT_MAX / 2
+constexpr int INFLL = numeric_limits<ll>::max() / 2;  // LLONG_MAX / 2
 
 // エラトステネスの篩
-void sieve(int num){
-  int N = 1000000; // Nまで調べる
-  bool arr[1000000]; // arr[i] := 整数 i が素数かどうか
+void sieve(int num) {
+  int N = 1000000;    // Nまで調べる
+  bool arr[1000000];  // arr[i] := 整数 i が素数かどうか
 
   // 篩を初期化
-	for(int i = 0; i < N; i++){
-		arr[i] = 1;
-	}
+  for (int i = 0; i < N; i++) {
+    arr[i] = 1;
+  }
 
   // 篩落とす
-	for(int i = 2; i < sqrt(N); i++){
-		if(arr[i]){
-			for(int j = 0; i * (j + 2) < N; j++){
-				arr[i *(j + 2)] = 0;
-			}
-		}
-	}
+  for (int i = 2; i < sqrt(N); i++) {
+    if (arr[i]) {
+      for (int j = 0; i * (j + 2) < N; j++) {
+        arr[i * (j + 2)] = 0;
+      }
+    }
+  }
 
-	for(int i = 0; i < N; i++){
-		if(arr[i]){
+  for (int i = 0; i < N; i++) {
+    if (arr[i]) {
       // i == 素数
       cout << i << endl;
-		}
-	}
+    }
+  }
 }
 
 // 繰り返し自乗法
@@ -53,37 +53,38 @@ ll modpow(ll num, ll pow, ll mod) {
 /* mod 逆元 */
 /* ここから */
 ll modpow(ll a, ll n, ll mod) {
-    ll res = 1;
-    while (n > 0) {
-        if (n & 1) res = res * a % mod;
-        a = a * a % mod;
-        n >>= 1;
-    }
-    return res;
+  ll res = 1;
+  while (n > 0) {
+    if (n & 1) res = res * a % mod;
+    a = a * a % mod;
+    n >>= 1;
+  }
+  return res;
 }
 
 // 上とセット
-ll modinv2(ll a, ll mod) {
-    return modpow(a, mod - 2, mod);
-}
+ll modinv2(ll a, ll mod) { return modpow(a, mod - 2, mod); }
 /* ここまで*/
 
 // 単体逆元
 ll modinv(ll a, ll m) {
-    ll b = m, u = 1, v = 0;
-    while (b) {
-        ll t = a / b;
-        a -= t * b; swap(a, b);
-        u -= t * v; swap(u, v);
-    }
-    u %= m; 
-    if (u < 0) u += m;
-    return u;
+  ll b = m, u = 1, v = 0;
+  while (b) {
+    ll t = a / b;
+    a -= t * b;
+    swap(a, b);
+    u -= t * v;
+    swap(u, v);
+  }
+  u %= m;
+  if (u < 0) u += m;
+  return u;
 }
 
 // nCk mod p (mod対応版nCk)
 /* ここから */
-const int MAX = 2000000; // 問題によって変更する(パスカルの三角形の段数、nCkのnの最大)
+const int MAX =
+    2000000;  // 問題によって変更する(パスカルの三角形の段数、nCkのnの最大)
 ll fac[MAX], finv[MAX], inv[MAX];
 
 // テーブルを作る前処理
@@ -119,6 +120,16 @@ int fact(int n) {
 }
 
 int nCr(int n, int r) { return fact(n) / (fact(r) * fact(n - r)); }
+
+// ncr の ll 単体版
+ll choose(int n, int r) {\
+  ll acc = 1;
+  for (int i = 0; i < r; i++) {
+    acc = acc * (n - i) / (i + 1);
+  }
+
+  return acc;
+}
 
 // run length分割した配列を返す
 // 例: "aabbcccd" -> return [['a', 'a'], ['b', 'b'], ['c', 'c', 'c'], ['d']]

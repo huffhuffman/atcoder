@@ -12,28 +12,34 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, p;
-  cin >> n >> p;
-  vector<ll> a(n);
-  ll e = 0;
-  ll o = 0;
+  int n;
+  cin >> n;
+  vector<int> a(n), b(n);
+  int mmin = INF;
+  int minI = 0;
+  int mmax = 0;
+  int maxI = 0;
   for (int i = 0; i < n; i++) {
-    cin >> a[i];
-    if (a[i] % 2) {
-      o++;
-    } else {
-      e++;
+    cin >> a[i] >> b[i];
+    if(mmin > b[i]) {
+      mmin = b[i];
+      minI = a[i];
+    }
+
+    if(mmax < b[i]) {
+      mmax = b[i];
+      maxI = a[i];
     }
   }
 
-  ll ans = 0;
-  if(e == n) {
-    ans = p ? 0 : pow(2, e);
-  } else {
-    ans = pow(2, n - 1);
-  }
+  int ans = minI + mmin;
 
   cout << ans << ln;
 
   return 0;
 }
+
+/*
+1 2 3 4 5 6 7 8 9
+x 9 x 7 x 2 1 0
+*/
