@@ -1,13 +1,12 @@
 #include <bits/stdc++.h>
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 using namespace std;
 using ll = long long;
 using P = pair<ll, ll>;
 const string ln = "\n";
 constexpr int INF = 1001001001;
 constexpr int MOD = 1000000007;
-
-// atcoder 解説
-// https://youtu.be/TdR816rqc3s
 
 struct UnionFind {
   // d[i] = 頂点番号iの親（の番号）
@@ -18,12 +17,12 @@ struct UnionFind {
   // 頂点n個で初期化。最初は全部に根するので-1
   UnionFind(int n = 0) : d(n, -1) {}
 
-  // 根（グループ）の番号を返す
+  // 親の番号を返す
   int find(int x) {
     if (d[x] < 0) return x;  // 根ならそのまま頂点番号返す
 
-    // 根じゃないなら親を返す（かつ計算量を削減のためメモ化する）
-    return d[x] = find(d[x]);
+    return d[x] = find(
+               d[x]);  // 根じゃないなら親を返す（かつ計算量を削減のためメモ化する）
   }
 
   // 木と木をくっつける
@@ -54,42 +53,32 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n, m, k;
-  cin >> n >> m >> k;
+  ll n, m;
+  cin >> n >> m;
+  vector<ll> x(m), y(m), z(m), a(n);
+  for (int i = 0; i < m; i++) {
+    cin >> x[i] >> y[i] >> z[i];
+    x[i]--;
+    y[i]--;
+    a[x[i]]++;
+    a[y[i]]++;
+  }
+
+  ll ans = count_if(all(a), [](ll v) { return v == 0; });
 
   UnionFind uf(n);
-
-  int frd[n + 10] = {};
   for (int i = 0; i < m; i++) {
-    int a, b;
-    cin >> a >> b;
-    a--;
-    b--;
-    uf.unite(a, b);
-    frd[a]++;
-    frd[b]++;
+    uf.unite(x[i], y[i]);
   }
 
-  vector<int> blk[n + 10];
-  for (int i = 0; i < k; i++) {
-    int c, d;
-    cin >> c >> d;
-    c--;
-    d--;
-    blk[c].push_back(d);
-    blk[d].push_back(c);
+  set<ll> st;
+  for (int i = 0; i < m; i++) {
+    st.insert(uf.find(x[i]));
   }
 
-  for (int i = 0; i < n; i++) {
-    int ans = uf.size(i) - 1 - frd[i];
-    for (int v : blk[i]) {
-      if (uf.same(i, v)) {
-        ans--;
-      }
-    }
+  ans += st.size();
 
-    cout << ans << endl;
-  }
+  cout << ans << ln;
 
   return 0;
 }
