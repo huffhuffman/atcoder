@@ -12,11 +12,13 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  string s;
-  cin >> s;
+  // 置換
+  string s = "ababaHOGEa";
 
-  regex re("HAGIYA");
-  string ans = regex_replace(s, re, "HAGIXILE");
+  regex re("HOGE");
+
+  string ans = regex_replace(s, re, "FUGA"); // ababaFUGAa
+
   cout << ans << ln;
 
   return 0;

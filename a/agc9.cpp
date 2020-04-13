@@ -12,11 +12,25 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  string s;
-  cin >> s;
+  ll n;
+  cin >> n;
+  vector<ll> a(n), b(n);
+  for (int i = 0; i < n; i++) {
+    cin >> a[i] >> b[i];
+  }
 
-  regex re("HAGIYA");
-  string ans = regex_replace(s, re, "HAGIXILE");
+  reverse(all(a));
+  reverse(all(b));
+  ll prev = 0;
+  ll ans = 0;
+  for (int i = 0; i < n; i++) {
+    ll curr = a[i] + prev;
+    curr %= b[i];
+    ll add = curr == 0 ? 0 : b[i] - curr;
+    ans += add;
+    prev += add;
+  }
+
   cout << ans << ln;
 
   return 0;
