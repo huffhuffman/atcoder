@@ -12,23 +12,29 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n;
-  cin >> n;
-  vector<ll> a(n);
-  for (int i = 0; i < n; i++) {
-    cin >> a[i];
+  string s;
+  cin >> s;
+  ll len = s.size();
+
+  map<char, ll> m;
+  for (int i = 0; i < len; i++) {
+    m[s[i]]++;
   }
 
-  ll ans = INF;
-  for (int i = 0; i < n; i++) {
-    ll num = a[i];
-    ll cnt = 0;
-    while (num % 2 == 0) {
-      num /= 2;
-      cnt++;
-    }
-    if (ans > cnt) {
-      ans = cnt;
+  string ans = "YES";
+  if (len >= 2) {
+    ll d = len / 3;
+    ll dm = len % 3;
+
+    map<ll, ll> cnt;
+    cnt[m['a']]++;
+    cnt[m['b']]++;
+    cnt[m['c']]++;
+
+    if (cnt[d] == 3 - dm && cnt[d + 1] == dm) {
+      ans = "YES";
+    } else {
+      ans = "NO";
     }
   }
 

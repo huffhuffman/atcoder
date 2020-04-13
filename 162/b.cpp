@@ -14,22 +14,14 @@ int main() {
 
   ll n;
   cin >> n;
-  vector<ll> a(n);
-  for (int i = 0; i < n; i++) {
-    cin >> a[i];
-  }
 
-  ll ans = INF;
-  for (int i = 0; i < n; i++) {
-    ll num = a[i];
-    ll cnt = 0;
-    while (num % 2 == 0) {
-      num /= 2;
-      cnt++;
+  ll ans = 0;
+  for (ll i = 1; i <= n; i++) {
+    if (i % 3 == 0 || i % 5 == 0) {
+      continue;
     }
-    if (ans > cnt) {
-      ans = cnt;
-    }
+
+    ans += i;
   }
 
   cout << ans << ln;

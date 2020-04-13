@@ -14,21 +14,19 @@ int main() {
 
   ll n;
   cin >> n;
-  vector<ll> a(n);
+  vector<ll> p(n + 10);
   for (int i = 0; i < n; i++) {
-    cin >> a[i];
+    cin >> p[i];
+    p[i]--;
   }
 
-  ll ans = INF;
+  ll ans = 0;
   for (int i = 0; i < n; i++) {
-    ll num = a[i];
-    ll cnt = 0;
-    while (num % 2 == 0) {
-      num /= 2;
-      cnt++;
-    }
-    if (ans > cnt) {
-      ans = cnt;
+    if (p[i] == -1) continue;
+
+    if (p[i] == i) {
+      p[i + 1] = -1;
+      ans++;
     }
   }
 

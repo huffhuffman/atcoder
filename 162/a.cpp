@@ -14,21 +14,14 @@ int main() {
 
   ll n;
   cin >> n;
-  vector<ll> a(n);
-  for (int i = 0; i < n; i++) {
-    cin >> a[i];
-  }
 
-  ll ans = INF;
-  for (int i = 0; i < n; i++) {
-    ll num = a[i];
-    ll cnt = 0;
-    while (num % 2 == 0) {
-      num /= 2;
-      cnt++;
-    }
-    if (ans > cnt) {
-      ans = cnt;
+  string s = to_string(n);
+
+  string ans = "No";
+  for (int i = 0; i < s.size(); i++) {
+    if (s[i] == '7') {
+      ans = "Yes";
+      break;
     }
   }
 
