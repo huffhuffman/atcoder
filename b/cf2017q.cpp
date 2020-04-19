@@ -16,13 +16,11 @@ int main() {
   cin >> n >> m >> k;
 
   string ans = "No";
-  for (ll x = 0; x <= m; x++) {
-    for (ll y = 0; y <= n; y++) {
-      ll val = n * y - (y * x) + m * x - (y * x);
+  for (ll a = 0; a <= m; a++) {
+    for (ll b = 0; b <= n; b++) {
+      ll val = a * (n - b) + b * (m - a);
 
       if (val == k) {
-        printf("x: %lld, y: %lld, ny: %lld, mx: %lld \n", x, y, n * y - (y * x),
-               m * x - (y * x));
         ans = "Yes";
       }
     }
