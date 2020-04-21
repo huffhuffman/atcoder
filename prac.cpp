@@ -12,19 +12,23 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, m, k;
-  cin >> n >> m >> k;
+  ll n, l;
+  cin >> n >> l;
+  string s;
+  cin >> s;
 
-  string ans = "No";
-  for (ll x = 0; x <= m; x++) {
-    for (ll y = 0; y <= n; y++) {
-      ll val = n * y - (y * x) + m * x - (y * x);
+  ll ans = 0;
+  ll curr = 1;
+  for (int i = 0; i < n; i++) {
+    if (s[i] == '+') {
+      curr++;
+    } else if (curr > 1) {
+      curr--;
+    }
 
-      if (val == k) {
-        printf("x: %lld, y: %lld, ny: %lld, mx: %lld \n", x, y, n * y - (y * x),
-               m * x - (y * x));
-        ans = "Yes";
-      }
+    if (curr > l) {
+      ans++;
+      curr = 1;
     }
   }
 
