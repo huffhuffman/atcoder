@@ -12,29 +12,15 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, k;
-  cin >> n >> k;
-  vector<ll> a(n);
+  ll s;
+  cin >> s;
 
-  for (int i = 0; i < n; i++) {
-    cin >> a[i];
-  }
+  constexpr ll h = 1000000000;
 
-  sort(all(a));
-  ll minn = a[0];
-  ll maxx = a.back();
+  ll y3 = (s + h - 1) / h;
+  ll x3 = h * y3 - s;
 
-  ll G = a[0];
-  for (int i = 0; i < n; i++) {
-    G = __gcd(a[i], G);
-  }
-
-  string ans = "IMPOSSIBLE";
-  if (k <= maxx && k % G == 0) {
-    ans = "POSSIBLE";
-  }
-
-  cout << ans << ln;
+  cout << "0 0 " << h << " " << 1 << " " << x3 << " " << y3 << ln;
 
   return 0;
 }
