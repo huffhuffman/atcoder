@@ -12,8 +12,17 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, x, y;
-  cin >> n >> x >> y;
+  ll x;
+  cin >> x;
+
+  ll c = 100;
+  ll i = 0;
+  while(c < x) {
+    c += (c / 100);
+    i++;
+  }
+
+  cout << i << ln;
 
   return 0;
 }

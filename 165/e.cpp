@@ -12,8 +12,10 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, x, y;
-  cin >> n >> x >> y;
+  ll n, m;
+  cin >> n >> m;
+
+  
 
   return 0;
 }

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#define all(x) (x).begin(),(x).end()
-#define rall(x) (x).rbegin(),(x).rend()
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 using namespace std;
 using ll = long long;
 using P = pair<ll, ll>;
@@ -12,8 +12,15 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, x, y;
-  cin >> n >> x >> y;
+  string s;
+  cin >> s;
+
+  string ans = "ARC";
+  if (s == "ARC") {
+    ans = "ABC";
+  }
+
+  cout << ans << ln;
 
   return 0;
 }
