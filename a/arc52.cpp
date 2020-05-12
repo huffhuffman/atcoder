@@ -12,13 +12,15 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  // 置換
-  string s = "ababaHOGEa";
+  string s;
+  cin >> s;
 
-  regex re("HOGE");
-  regex re2(R"(^\d+$)");
+  regex re(R"(\d+)");
+  smatch m;
 
-  string ans = regex_replace(s, re, "FUGA"); // ababaFUGAa
+  regex_search(s, m, re);
+
+  string ans = m.str();
 
   cout << ans << ln;
 

@@ -12,15 +12,7 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  // 置換
-  string s = "ababaHOGEa";
-
-  regex re("HOGE");
-  regex re2(R"(^\d+$)");
-
-  string ans = regex_replace(s, re, "FUGA"); // ababaFUGAa
-
-  cout << ans << ln;
+  auto [min, max] = std::minmax({10, 50, 30, 20});
 
   return 0;
 }

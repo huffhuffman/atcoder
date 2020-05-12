@@ -12,13 +12,21 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  // 置換
-  string s = "ababaHOGEa";
+  ll a, b, c, k;
+  cin >> a >> b >> c >> k;
 
-  regex re("HOGE");
-  regex re2(R"(^\d+$)");
+  ll ans = 0;
+  if (a >= k) {
+    ans = k;
+  } else {
+    ans = a;
+    k -= a;
 
-  string ans = regex_replace(s, re, "FUGA"); // ababaFUGAa
+    if (b < k) {
+      k -= b;
+      ans -= k;
+    }
+  }
 
   cout << ans << ln;
 
