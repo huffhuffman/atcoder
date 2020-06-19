@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#define all(x) (x).begin(),(x).end()
-#define rall(x) (x).rbegin(),(x).rend()
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 using namespace std;
 using ll = long long;
 using P = pair<ll, ll>;
@@ -16,15 +16,13 @@ int main() {
   cin >> a >> b;
 
   string ans = "Bug";
-  if(abs(a) < abs(b)) {
+  if (abs(a) < abs(b)) {
     ans = "Ant";
-  } else if ( abs(a) == abs(b)) {
+  } else if (abs(a) == abs(b)) {
     ans = "Draw";
   }
 
   cout << ans << ln;
-
-
 
   return 0;
 }
