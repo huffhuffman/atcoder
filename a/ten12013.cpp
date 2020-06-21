@@ -12,17 +12,30 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, m;
-  cin >> n >> m;
-  --m;
-  vector<ll> v;
+  ll n;
+  cin >> n;
+  vector<ll> v[n];
   for (int i = 0; i < n; i++) {
-    if (m != i) {
-      v.push_back(i + 1);
+    for (int j = 0; j < 5; j++) {
+      ll t;
+      cin >> t;
+      v[i].push_back(t);
     }
   }
 
-  cout << v[0] << ln;
+  ll ans = 0;
+  for (int i = 0; i < n; i++) {
+    ll sum = 0;
+    for (int j = 0; j < 5; j++) {
+      sum += v[i][j];
+    }
+
+    if (sum >= 0 && sum < 20) {
+      ans++;
+    }
+  }
+
+  cout << ans << ln;
 
   return 0;
 }
