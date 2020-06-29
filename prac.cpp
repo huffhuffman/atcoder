@@ -12,24 +12,19 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n, a, b;
-  cin >> n >> a >> b;
+  ll n;
+  cin >> n;
+  string s;
+  cin >> s;
 
-  int i = 0;
-  while (n > 0) {
-    if (i % 2 == 0) {
-      n -= a;
-    } else {
-      n -= b;
-    }
-    i++;
+  double sum = 0;
+  for (int i = 0; i < n; i++) {
+    sum += s[i] == 'F' ? 0 : 'E' - s[i];
   }
 
-  string ans = "Bug";
-  if (i % 2) {
-    ans = "Ant";
-  }
+  double ans = sum / n;
 
+  cout << setprecision(10);
   cout << ans << ln;
 
   return 0;
