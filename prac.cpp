@@ -12,20 +12,15 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n;
-  cin >> n;
-  string s;
-  cin >> s;
-
-  double sum = 0;
-  for (int i = 0; i < n; i++) {
-    sum += s[i] == 'F' ? 0 : 'E' - s[i];
+  set<string> s;
+  for (int i = 1; i < 1001; i++) {
+    string num = to_string(i);
+    s.insert(num);
   }
 
-  double ans = sum / n;
-
-  cout << setprecision(10);
-  cout << ans << ln;
+  for (auto num : s) {
+    cout << num << ln;
+  }
 
   return 0;
 }
