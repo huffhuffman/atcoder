@@ -12,15 +12,14 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  set<string> s;
-  for (int i = 1; i < 1001; i++) {
-    string num = to_string(i);
-    s.insert(num);
+  vector<string> sv(15);
+  for (int i = 0; i < 15; i++) {
+    cin >> sv[i];
   }
 
-  for (auto num : s) {
-    cout << num << ln;
-  }
+  sort(all(sv));
+
+  cout << sv[6] << ln;
 
   return 0;
 }
