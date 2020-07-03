@@ -8,45 +8,21 @@ const string ln = "\n";
 constexpr int INF = 1001001001;
 constexpr int MOD = 1000000007;
 
-// エラトステネスの篩
-int sieve(int num) {
-  int N = 1000000;    // Nまで調べる
-  bool arr[1000000];  // arr[i] := 整数 i が素数かどうか
-
-  // 篩を初期化
-  for (int i = 0; i < N; i++) {
-    arr[i] = 1;
-  }
-  arr[0] = false;
-  arr[1] = false;
-
-  // 篩落とす
-  for (int i = 2; i < sqrt(N); i++) {
-    if (arr[i]) {
-      for (int j = 0; i * (j + 2) < N; j++) {
-        arr[i * (j + 2)] = 0;
-      }
-    }
-  }
-
-  int sum = 0;
-  for (int i = 0; i < num; i++) {
-    if (arr[i]) {
-      sum++;
-    }
-  }
-
-  return sum;
-}
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  int n;
+  ll n;
   cin >> n;
-  ll ans = sieve(n);
-  cout << ans << ln;
+
+  vector<ll> ans(n + 1);
+  ans[0] = 1;
+  ans[1] = 1;
+  for (int i = 2; i <= n; i++) {
+    ans[i] = ans[i - 1] + ans[i - 2];
+  }
+
+  cout << ans[n] << ln;
 
   return 0;
 }
