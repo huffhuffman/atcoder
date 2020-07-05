@@ -15,14 +15,16 @@ int main() {
   ll n;
   cin >> n;
 
-  vector<ll> ans(n + 1);
-  ans[0] = 1;
-  ans[1] = 1;
-  for (int i = 2; i <= n; i++) {
-    ans[i] = ans[i - 1] + ans[i - 2];
+  ll ans = n / 10 * 100;
+  ll rem = n % 10;
+
+  if (rem * 15 > 100) {
+    ans += 100;
+  } else {
+    ans += rem * 15;
   }
 
-  cout << ans[n] << ln;
+  cout << ans << ln;
 
   return 0;
 }
