@@ -8,22 +8,30 @@ const string ln = "\n";
 constexpr int INF = 1001001001;
 constexpr int MOD = 1000000007;
 
+ll f(double y, double m, double d) {
+  return 365 * y + floor(y / 4) - floor(y / 100) + floor(y / 400) +
+         floor(306 * (m + 1) / 10) + d - 429;
+}
+
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll n;
-  cin >> n;
+  ll y, m, d;
+  cin >> y >> m >> d;
 
-  ll ans = n / 10 * 100;
-  ll rem = n % 10;
-
-  if (rem * 15 > 100) {
-    ans += 100;
-  } else {
-    ans += rem * 15;
+  if (m == 1) {
+    y--;
+    m = 13;
+  } else if (m == 2) {
+    y--;
+    m = 14;
   }
 
+  ll l = f(y, m, d);
+  ll r = f(2014, 5, 17);
+
+  ll ans = r - l;
   cout << ans << ln;
 
   return 0;
