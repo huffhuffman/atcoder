@@ -8,31 +8,44 @@ const string ln = "\n";
 constexpr int INF = 1001001001;
 constexpr int MOD = 1000000007;
 
-ll f(double y, double m, double d) {
-  return 365 * y + floor(y / 4) - floor(y / 100) + floor(y / 400) +
-         floor(306 * (m + 1) / 10) + d - 429;
-}
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll y, m, d;
-  cin >> y >> m >> d;
-
-  if (m == 1) {
-    y--;
-    m = 13;
-  } else if (m == 2) {
-    y--;
-    m = 14;
+  ll n;
+  cin >> n;
+  vector<string> s(n);
+  for (int i = 0; i < n; i++) {
+    cin >> s[i];
   }
 
-  ll l = f(y, m, d);
-  ll r = f(2014, 5, 17);
+  string ind = "indeednow";
+  map<char, ll> ref;
+  for (int i = 0; i < ind.size(); i++) {
+    ref[ind[i]]++;
+  }
 
-  ll ans = r - l;
-  cout << ans << ln;
+  for (int i = 0; i < n; i++) {
+    map<char, ll> mp;
+    for (char c : s[i]) {
+      mp[c]++;
+    }
+
+    bool ok = true;
+    for (auto p : mp) {
+      if (ref.find(p.first) == ref.end()) {
+        ok = false;
+        break;
+      }
+
+      if (ref[p.first] != mp[p.first]) {
+        ok = false;
+        break;
+      }
+    }
+
+    cout << (ok ? "YES" : "NO") << ln;
+  }
 
   return 0;
 }
