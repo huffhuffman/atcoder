@@ -12,28 +12,19 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
 
-  ll a, b;
-  cin >> a >> b;
-  vector<ll> p(a), q(b);
-  for (int i = 0; i < a; i++) {
-    cin >> p[i];
-  }
-  for (int i = 0; i < b; i++) {
-    cin >> q[i];
-  }
-
-  vector<char> v(10, 'x');
-  for (int i = 0; i < a; i++) {
-    v[p[i]] = '.';
-  }
-  for (int i = 0; i < b; i++) {
-    v[q[i]] = 'o';
+  string s;
+  cin >> s;
+  ll len = s.size();
+  ll ans = 0;
+  for (int i = 0; i < len; i++) {
+    if (i % 2 == 0) {
+      ans += s[i] - '0';
+    } else {
+      ans -= s[i] - '0';
+    }
   }
 
-  cout << v[7] << ' ' << v[8] << ' ' << v[9] << ' ' << v[0] << ln;
-  cout << ' ' << v[4] << ' ' << v[5] << ' ' << v[6] << ln;
-  cout << "  " << v[2] << ' ' << v[3] << ln;
-  cout << "   " << v[1] << ln;
+  cout << ans << ln;
 
   return 0;
 }
